@@ -5,6 +5,8 @@ import {
     FaShare,
     FaChevronLeft,
     FaChevronRight,
+    FaRocket,
+    FaLightbulb
 } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
 
@@ -48,91 +50,125 @@ const PostCard = ({ post }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md mb-6 overflow-hidden relative">
-            <div className="relative w-full h-72 overflow-hidden">
+        <div className="bg-white border-b border-gray-100 mb-3 overflow-hidden w-full">
+            {/* Header */}
+            <div className="flex items-center justify-between px-3 py-2 bg-gray-50">
+                <div className="flex items-center space-x-2">
+                    <img
+                        src={post.userImage}
+                        alt="user"
+                        className="w-7 h-7 rounded-full"
+                    />
+                    <div>
+                        <p className="text-sm font-semibold text-gray-900">@{post.username}</p>
+                        <div className="flex items-center space-x-1">
+                            <FaRocket className="text-blue-500 text-xs" />
+                            <span className="text-xs text-gray-500">Building</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                    {isFollowing ? (
+                        <span className="text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
+                            Following
+                        </span>
+                    ) : showDots ? (
+                        <FiMoreHorizontal className="text-gray-400 animate-pulse" />
+                    ) : (
+                        <button
+                            onClick={handleFollow}
+                            className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+                        >
+                            Follow
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            {/* Image Section */}
+            <div className="relative w-full h-64">
                 <div
-                    className="flex transition-transform duration-500 ease-in-out"
-                    style={{ transform: `translateX(-${currentImage * 100}%)`, width: `${images.length * 100}%` }}
+                    className="flex transition-transform duration-500 ease-in-out h-full"
+                    style={{
+                        transform: `translateX(-${currentImage * 100}%)`,
+                        width: `${images.length * 100}%`
+                    }}
                 >
                     {images.map((img, index) => (
                         <img
                             key={index}
                             src={img}
                             alt="Post"
-                            className="w-full h-72 object-cover flex-shrink-0"
+                            className="w-full h-64 object-cover flex-shrink-0"
                         />
                     ))}
-                </div>
-
-                <div className="absolute top-2 left-2 flex items-center bg-black/60 rounded-full px-2 py-1 text-white text-sm z-10">
-                    <img
-                        src={post.userImage}
-                        alt="user"
-                        className="w-6 h-6 rounded-full mr-2"
-                    />
-                    @{post.username}
                 </div>
 
                 {images.length > 1 && (
                     <>
                         <button
                             onClick={prevImage}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white px-2 py-1 rounded-full z-10"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center"
                         >
-                            <FaChevronLeft />
+                            <FaChevronLeft className="text-xs" />
                         </button>
                         <button
                             onClick={nextImage}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 text-white px-2 py-1 rounded-full z-10"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center"
                         >
-                            <FaChevronRight />
+                            <FaChevronRight className="text-xs" />
                         </button>
 
-                        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1 z-10">
+                        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1">
                             {images.map((_, index) => (
                                 <div
                                     key={index}
-                                    className={`w-2 h-2 rounded-full ${index === currentImage ? "bg-white" : "bg-gray-400"}`}
-                                ></div>
+                                    className={`w-1.5 h-1.5 rounded-full ${index === currentImage ? "bg-white" : "bg-white bg-opacity-50"
+                                        }`}
+                                />
                             ))}
                         </div>
                     </>
                 )}
             </div>
 
-            <div className="p-4">
-                <h3 className="text-sm text-gray-700 font-medium">@{post.username}</h3>
-                <p className="text-gray-800 mt-1">{post.caption}</p>
+            {/* Content */}
+            <div className="px-3 py-2">
+                <p className="text-sm text-gray-800 leading-relaxed">{post.caption}</p>
+            </div>
 
-                <div className="flex justify-between items-center mt-3">
-                    <div className="flex gap-4 text-gray-600 text-sm">
-                        <button onClick={handleLike} className="flex items-center gap-1 hover:text-red-500">
-                            <FaHeart className={liked ? "text-red-500" : ""} /> {likes}
-                        </button>
-                        <button onClick={handleComment} className="flex items-center gap-1 hover:text-blue-500">
-                            <FaComment /> {post.comments}
-                        </button>
-                        <button onClick={handleShare} className="flex items-center gap-1 hover:text-green-500">
-                            <FaShare />
-                        </button>
-                    </div>
+            {/* Actions */}
+            <div className="flex items-center justify-between px-3 py-2 border-t border-gray-100">
+                <div className="flex items-center space-x-4">
+                    <button
+                        onClick={handleLike}
+                        className="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-colors"
+                    >
+                        <FaHeart className={`text-sm ${liked ? "text-red-500" : ""}`} />
+                        <span className="text-xs font-medium">{likes}</span>
+                    </button>
 
-                    <div>
-                        {isFollowing ? (
-                            <span className="text-sm text-green-600 font-semibold">Following</span>
-                        ) : showDots ? (
-                            <span className="flex items-center text-gray-400 animate-pulse">
-                                <FiMoreHorizontal className="text-xl" />
-                            </span>
-                        ) : (
-                            <button
-                                onClick={handleFollow}
-                                className="px-3 py-1 text-sm bg-blue-500 text-white rounded-full hover:bg-blue-600"
-                            >
-                                Follow
-                            </button>
-                        )}
-                    </div>
+                    <button
+                        onClick={handleComment}
+                        className="flex items-center space-x-1 text-gray-600 hover:text-blue-500 transition-colors"
+                    >
+                        <FaComment className="text-sm" />
+                        <span className="text-xs font-medium">{post.comments}</span>
+                    </button>
+
+                    <button
+                        onClick={handleShare}
+                        className="flex items-center space-x-1 text-gray-600 hover:text-green-500 transition-colors"
+                    >
+                        <FaShare className="text-sm" />
+                        <span className="text-xs font-medium">Share</span>
+                    </button>
+                </div>
+
+                <div className="flex items-center space-x-1 text-xs text-gray-500">
+                    <FaLightbulb className="text-yellow-500" />
+                    <span>Startup Journey</span>
                 </div>
             </div>
         </div>
