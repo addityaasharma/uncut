@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
     FaHeart,
     FaComment,
     FaShare,
     FaChevronLeft,
     FaChevronRight,
-    FaRocket,
-    FaLightbulb
+    FaRocket
 } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
 
@@ -18,14 +17,16 @@ const PostCard = ({ post }) => {
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(post.likes || 0);
 
+    const touchStartX = useRef(0);
+    const touchEndX = useRef(0);
+    const isDragging = useRef(false);
+
     const nextImage = () => {
         setCurrentImage((prev) => (prev + 1) % images.length);
     };
 
     const prevImage = () => {
-        setCurrentImage((prev) =>
-            prev === 0 ? images.length - 1 : prev - 1
-        );
+        setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
     };
 
     const handleFollow = () => {
@@ -41,35 +42,62 @@ const PostCard = ({ post }) => {
         setLikes((prev) => (liked ? prev - 1 : prev + 1));
     };
 
-    const handleComment = () => {
-        alert("Comment clicked");
+    const handleComment = () => alert("Comment clicked");
+    const handleShare = () => alert("Share clicked");
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
     };
 
-    const handleShare = () => {
-        alert("Share clicked");
+    const handleTouchEnd = (e) => {
+        touchEndX.current = e.changedTouches[0].clientX;
+        handleSwipe();
+    };
+
+    const handleMouseDown = (e) => {
+        isDragging.current = true;
+        touchStartX.current = e.clientX;
+    };
+
+    const handleMouseUp = (e) => {
+        if (!isDragging.current) return;
+        touchEndX.current = e.clientX;
+        isDragging.current = false;
+        handleSwipe();
+    };
+
+    const handleSwipe = () => {
+        const distance = touchStartX.current - touchEndX.current;
+        const threshold = 50;
+
+        if (distance > threshold) {
+            nextImage();
+        } else if (distance < -threshold) {
+            prevImage();
+        }
     };
 
     return (
-        <div className="bg-white border-b border-gray-100 mb-1 overflow-hidden w-full">
-            <div className="flex items-center justify-between px-3 py-2 bg-gray-50">
-                <div className="flex items-center space-x-2">
+        <div className="bg-white border border-gray-200 shadow-lg mb-1 overflow-hidden w-full max-w-xl mx-auto transition hover:shadow-xl">
+            <div className="flex items-center justify-between px-4 py-4 bg-gray-50">
+                <div className="flex items-center space-x-3">
                     <img
                         src={post.userImage}
                         alt="user"
-                        className="w-7 h-7 rounded-full"
+                        className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-500"
                     />
                     <div>
                         <p className="text-sm font-semibold text-gray-900">@{post.username}</p>
-                        <div className="flex items-center space-x-1">
+                        <div className="flex items-center space-x-1 text-xs text-gray-500">
                             <FaRocket className="text-blue-500 text-xs" />
-                            <span className="text-xs text-gray-500">Building</span>
+                            <span>Building</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
+                <div>
                     {isFollowing ? (
-                        <span className="text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
+                        <span className="text-xs text-green-700 bg-green-100 px-3 py-1 rounded-full font-medium">
                             Following
                         </span>
                     ) : showDots ? (
@@ -77,7 +105,7 @@ const PostCard = ({ post }) => {
                     ) : (
                         <button
                             onClick={handleFollow}
-                            className="text-xs bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+                            className="text-xs bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800 transition"
                         >
                             Follow
                         </button>
@@ -85,12 +113,19 @@ const PostCard = ({ post }) => {
                 </div>
             </div>
 
-            <div className="relative w-full h-64">
+            {/* Image Carousel */}
+            <div
+                className="relative w-full h-72 bg-gray-100 overflow-hidden"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+            >
                 <div
                     className="flex transition-transform duration-500 ease-in-out h-full"
                     style={{
                         transform: `translateX(-${currentImage * 100}%)`,
-                        width: `${images.length * 100}%`
+                        width: `${images.length * 100}%`,
                     }}
                 >
                     {images.map((img, index) => (
@@ -98,7 +133,8 @@ const PostCard = ({ post }) => {
                             key={index}
                             src={img}
                             alt="Post"
-                            className="w-full h-64 object-cover flex-shrink-0"
+                            className="w-full h-72 object-cover flex-shrink-0 select-none"
+                            draggable="false"
                         />
                     ))}
                 </div>
@@ -107,22 +143,24 @@ const PostCard = ({ post }) => {
                     <>
                         <button
                             onClick={prevImage}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/70"
                         >
-                            <FaChevronLeft className="text-xs" />
+                            <FaChevronLeft className="text-base" />
                         </button>
                         <button
                             onClick={nextImage}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/70"
                         >
-                            <FaChevronRight className="text-xs" />
+                            <FaChevronRight className="text-base" />
                         </button>
 
-                        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1">
                             {images.map((_, index) => (
                                 <div
                                     key={index}
-                                    className={`w-1.5 h-1.5 rounded-full ${index === currentImage ? "bg-white" : "bg-white bg-opacity-50"
+                                    className={`w-2.5 h-2.5 rounded-full ${index === currentImage
+                                        ? "bg-white"
+                                        : "bg-white/40"
                                         }`}
                                 />
                             ))}
@@ -131,40 +169,37 @@ const PostCard = ({ post }) => {
                 )}
             </div>
 
-            <div className="px-3 py-2">
+            {/* Caption */}
+            <div className="px-4 py-3">
                 <p className="text-sm text-gray-800 leading-relaxed">{post.caption}</p>
             </div>
 
-            <div className="flex items-center justify-between px-3 py-2 border-t border-gray-100">
-                <div className="flex items-center space-x-4">
+            {/* Actions */}
+            <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+                <div className="flex items-center space-x-6">
                     <button
                         onClick={handleLike}
                         className="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-colors"
                     >
-                        <FaHeart className={`text-sm ${liked ? "text-red-500" : ""}`} />
-                        <span className="text-xs font-medium">{likes}</span>
+                        <FaHeart className={`text-xl ${liked ? "text-red-500" : ""}`} />
+                        <span className="text-sm font-semibold">{likes}</span>
                     </button>
 
                     <button
                         onClick={handleComment}
                         className="flex items-center space-x-1 text-gray-600 hover:text-blue-500 transition-colors"
                     >
-                        <FaComment className="text-sm" />
-                        <span className="text-xs font-medium">{post.comments}</span>
+                        <FaComment className="text-xl" />
+                        <span className="text-sm font-semibold">{post.comments}</span>
                     </button>
 
                     <button
                         onClick={handleShare}
                         className="flex items-center space-x-1 text-gray-600 hover:text-green-500 transition-colors"
                     >
-                        <FaShare className="text-sm" />
-                        <span className="text-xs font-medium">Share</span>
+                        <FaShare className="text-xl" />
+                        <span className="text-sm font-semibold">Share</span>
                     </button>
-                </div>
-
-                <div className="flex items-center space-x-1 text-xs text-gray-500">
-                    <FaLightbulb className="text-yellow-500" />
-                    <span>Startup Journey</span>
                 </div>
             </div>
         </div>
