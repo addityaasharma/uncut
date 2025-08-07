@@ -1,9 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import PostCard from "../components/PostCard";
-import BottomNav from "../components/BottomNav";
 import { FaPlus } from "react-icons/fa";
-import Header from "../components/Header.jsx";
 
 const Home = () => {
     const posts = useSelector((state) => state.posts);
@@ -21,16 +19,10 @@ const Home = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 pb-24 relative">
-            <div>
-                <Header />
-            </div>
-
-            <div className="pt-1">
-                {posts.map((post) => (
-                    <PostCard key={post.id} post={post} />
-                ))}
-            </div>
+        <div className="pt-1">
+            {posts.map((post) => (
+                <PostCard key={post.id} post={post} />
+            ))}
 
             <input
                 type="file"
@@ -47,8 +39,6 @@ const Home = () => {
             >
                 <FaPlus />
             </button>
-
-            <BottomNav />
         </div>
     );
 };

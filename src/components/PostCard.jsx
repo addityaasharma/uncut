@@ -78,7 +78,7 @@ const PostCard = ({ post }) => {
     };
 
     return (
-        <div className="bg-white border border-gray-200 shadow-lg mb-1 overflow-hidden w-full max-w-xl mx-auto transition hover:shadow-xl">
+        <div className="bg-white border border-gray-200 mb-1 overflow-hidden w-full max-w-xl mx-auto transition hover:shadow-xl">
             <div className="flex items-center justify-between px-4 py-4 bg-gray-50">
                 <div className="flex items-center space-x-3">
                     <img
