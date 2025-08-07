@@ -50,8 +50,7 @@ const PostCard = ({ post }) => {
     };
 
     return (
-        <div className="bg-white border-b border-gray-100 mb-3 overflow-hidden w-full">
-            {/* Header */}
+        <div className="bg-white border-b border-gray-100 mb-1 overflow-hidden w-full">
             <div className="flex items-center justify-between px-3 py-2 bg-gray-50">
                 <div className="flex items-center space-x-2">
                     <img
@@ -86,7 +85,6 @@ const PostCard = ({ post }) => {
                 </div>
             </div>
 
-            {/* Image Section */}
             <div className="relative w-full h-64">
                 <div
                     className="flex transition-transform duration-500 ease-in-out h-full"
@@ -133,12 +131,10 @@ const PostCard = ({ post }) => {
                 )}
             </div>
 
-            {/* Content */}
             <div className="px-3 py-2">
                 <p className="text-sm text-gray-800 leading-relaxed">{post.caption}</p>
             </div>
 
-            {/* Actions */}
             <div className="flex items-center justify-between px-3 py-2 border-t border-gray-100">
                 <div className="flex items-center space-x-4">
                     <button
