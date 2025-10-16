@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import uncutLogo from "../assets/uncutcolorful.png"
+import uncutLogo from "../assets/uncutcolorfullogopn.png"
 
 const LandingPage = () => {
     const navigate = useNavigate()
