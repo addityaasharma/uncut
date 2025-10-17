@@ -32,10 +32,13 @@ const SignupPage = () => {
 
     return (
         <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+            {/* Left Side - Photo Collage */}
             <div className="hidden md:flex md:w-1/2 items-center justify-center p-8 lg:p-12">
                 <div className="relative w-full max-w-md">
+                    {/* Background decoration */}
                     <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-3xl opacity-20 blur-2xl"></div>
 
+                    {/* Photo Grid Container */}
                     <div className="relative grid grid-cols-3 gap-3 p-6">
                         {images.map((img, index) => (
                             <motion.div
@@ -71,30 +74,32 @@ const SignupPage = () => {
                         ))}
                     </div>
 
+                    {/* Centered Text Overlay */}
                     <motion.div
                         className="absolute inset-0 flex items-center justify-center"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1.4, duration: 0.6 }}
                     >
-                        <div className="text-center backdrop-blur-md px-8 py-6 rounded-2xl shadow-2xl">
-                            <h2 className="text-4xl font-bold bg-black bg-clip-text text-transparent mb-2">
+                        <div className="text-center bg-white/90 backdrop-blur-md px-8 py-6 rounded-2xl shadow-2xl">
+                            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">
                                 Uncut
                             </h2>
-                            <p className="text-black text-md font-medium">Your Startup, Your Story.</p>
+                            <p className="text-gray-700 text-lg font-medium">Your Startup, Your Story.</p>
                         </div>
                     </motion.div>
                 </div>
             </div>
 
             {/* Right Side - Auth Forms */}
-            <div className="flex-1 md:w-1/2 flex items-center justify-center p-6 sm:p-8 md:p-12">
+            <div className="flex-1 md:w-1/2 flex items-center justify-center md:p-12">
                 <motion.div
-                    className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10"
+                    className="w-full max-w-md bg-white md:rounded-2xl md:shadow-xl p-6 sm:p-8 md:p-10 min-h-screen md:min-h-0 flex flex-col justify-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
+                    {/* Mobile Logo */}
                     <div className="md:hidden text-center mb-8">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                             Uncut
@@ -102,6 +107,7 @@ const SignupPage = () => {
                         <p className="text-gray-600 mt-2">Your Startup, Your Story.</p>
                     </div>
 
+                    {/* Toggle Buttons */}
                     <div className="flex gap-2 mb-8 bg-gray-100 p-1 rounded-lg">
                         <button
                             onClick={() => setIsLogin(true)}
