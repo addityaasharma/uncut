@@ -81,11 +81,11 @@ const SignupPage = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1.4, duration: 0.6 }}
                     >
-                        <div className="text-center bg-white/90 backdrop-blur-md px-8 py-6 rounded-2xl shadow-2xl">
-                            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">
+                        <div className="text-center bg-white/30 backdrop-blur-md px-8 py-6 rounded-2xl shadow-2xl">
+                            <h2 className="text-4xl font-bold bg-black/40 bg-clip-text text-transparent mb-2">
                                 Uncut
                             </h2>
-                            <p className="text-gray-700 text-lg font-medium">Your Startup, Your Story.</p>
+                            <p className="text-gray-700/60 text-lg font-medium">Your Startup, Your Story.</p>
                         </div>
                     </motion.div>
                 </div>
