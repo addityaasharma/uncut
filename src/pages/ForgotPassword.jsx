@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, Lock, ArrowLeft, CheckCircle, Eye, EyeOff } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const ForgotPasswordPage = () => {
-    const [step, setStep] = useState(1) // 1: Email, 2: OTP, 3: New Password, 4: Success
+    const navigate = useNavigate()
+    const [step, setStep] = useState(1)
     const [email, setEmail] = useState('')
     const [otp, setOtp] = useState(['', '', '', '', '', ''])
     const [newPassword, setNewPassword] = useState('')
@@ -25,7 +27,6 @@ const ForgotPasswordPage = () => {
             newOtp[index] = value
             setOtp(newOtp)
 
-            // Auto-focus next input
             if (value && index < 5) {
                 document.getElementById(`otp-${index + 1}`)?.focus()
             }
@@ -94,10 +95,10 @@ const ForgotPasswordPage = () => {
                             <div
                                 key={s}
                                 className={`h-2 rounded-full transition-all duration-300 ${s === step
-                                        ? 'w-12 bg-gradient-to-r from-purple-600 to-pink-500'
-                                        : s < step
-                                            ? 'w-8 bg-purple-600'
-                                            : 'w-8 bg-gray-200'
+                                    ? 'w-12 bg-gradient-to-r from-purple-600 to-pink-500'
+                                    : s < step
+                                        ? 'w-8 bg-purple-600'
+                                        : 'w-8 bg-gray-200'
                                     }`}
                             />
                         ))}
@@ -145,7 +146,6 @@ const ForgotPasswordPage = () => {
                         </motion.div>
                     )}
 
-                    {/* Step 2: OTP Verification */}
                     {step === 2 && (
                         <motion.div
                             key="otp"
@@ -205,7 +205,6 @@ const ForgotPasswordPage = () => {
                         </motion.div>
                     )}
 
-                    {/* Step 3: New Password */}
                     {step === 3 && (
                         <motion.div
                             key="password"
@@ -281,7 +280,6 @@ const ForgotPasswordPage = () => {
                         </motion.div>
                     )}
 
-                    {/* Step 4: Success */}
                     {step === 4 && (
                         <motion.div
                             key="success"
@@ -306,7 +304,7 @@ const ForgotPasswordPage = () => {
                                 </div>
 
                                 <button
-                                    onClick={() => window.location.href = '/login'}
+                                    onClick={() => navigate('/login')}
                                     className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:scale-[1.02] transition-all"
                                 >
                                     Go to Login
