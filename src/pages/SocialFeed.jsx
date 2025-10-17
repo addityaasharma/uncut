@@ -210,19 +210,21 @@ const SocialPlatform = () => {
                                 })}
                             </div>
 
-                            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-                                <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                            <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200 shadow-sm">
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 self-start">
                                         JD
                                     </div>
+
                                     <div className="flex-1">
                                         <input
                                             type="text"
-                                            placeholder="Share your startup journey..."
-                                            className="w-full px-4 py-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-purple-500 transition-all mb-3"
+                                            placeholder="What is happening in your startup.."
+                                            className="w-full px-4 py-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-purple-500 transition-all mb-3 text-sm sm:text-base"
                                         />
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex gap-2">
+
+                                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+                                            <div className="flex flex-wrap gap-2">
                                                 <button className="px-3 py-1.5 bg-purple-50 text-purple-600 rounded-lg text-sm font-medium hover:bg-purple-100 transition-all">
                                                     Milestone
                                                 </button>
@@ -233,13 +235,15 @@ const SocialPlatform = () => {
                                                     Question
                                                 </button>
                                             </div>
-                                            <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+
+                                            <button className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
                                                 Post
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
 
                             {posts.map((post, idx) => (
                                 <motion.div
