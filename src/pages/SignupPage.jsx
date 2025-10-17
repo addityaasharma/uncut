@@ -21,7 +21,7 @@ const SignupPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log('Form submitted:', formData)
-        navigate("/dashboard")
+        navigate("/feed")
     }
 
     const images = [
