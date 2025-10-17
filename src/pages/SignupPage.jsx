@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const SignupPage = () => {
+    const navigate = useNavigate()
     const [isLogin, setIsLogin] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -32,13 +34,10 @@ const SignupPage = () => {
 
     return (
         <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
-            {/* Left Side - Photo Collage */}
             <div className="hidden md:flex md:w-1/2 items-center justify-center p-8 lg:p-12">
                 <div className="relative w-full max-w-md">
-                    {/* Background decoration */}
                     <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-3xl opacity-20 blur-2xl"></div>
 
-                    {/* Photo Grid Container */}
                     <div className="relative grid grid-cols-3 gap-3 p-6">
                         {images.map((img, index) => (
                             <motion.div
@@ -74,7 +73,6 @@ const SignupPage = () => {
                         ))}
                     </div>
 
-                    {/* Centered Text Overlay */}
                     <motion.div
                         className="absolute inset-0 flex items-center justify-center"
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -91,7 +89,6 @@ const SignupPage = () => {
                 </div>
             </div>
 
-            {/* Right Side - Auth Forms */}
             <div className="flex-1 md:w-1/2 flex items-center justify-center md:p-12">
                 <motion.div
                     className="w-full max-w-md bg-white md:rounded-2xl md:shadow-xl p-6 sm:p-8 md:p-10 min-h-screen md:min-h-0 flex flex-col justify-center"
@@ -99,7 +96,6 @@ const SignupPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    {/* Mobile Logo */}
                     <div className="md:hidden text-center mb-8">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                             Uncut
@@ -107,7 +103,6 @@ const SignupPage = () => {
                         <p className="text-gray-600 mt-2">Your Startup, Your Story.</p>
                     </div>
 
-                    {/* Toggle Buttons */}
                     <div className="flex gap-2 mb-8 bg-gray-100 p-1 rounded-lg">
                         <button
                             onClick={() => setIsLogin(true)}
@@ -212,7 +207,7 @@ const SignupPage = () => {
                                             <input type="checkbox" className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500" />
                                             <span className="ml-2 text-gray-600">Remember me</span>
                                         </label>
-                                        <button onClick={() => alert('Forgot password clicked')} className="text-purple-600 hover:text-purple-700 font-medium">
+                                        <button onClick={() => navigate('/forgot-password')} className="text-purple-600 hover:text-purple-700 font-medium">
                                             Forgot password?
                                         </button>
                                     </div>
