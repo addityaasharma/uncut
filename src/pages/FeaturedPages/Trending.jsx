@@ -324,7 +324,7 @@ const TrendingPage = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div className="hidden sm:grid sm:grid-cols-3 gap-4 mb-6">
                         <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-6 text-white">
                             <TrendingUp className="w-8 h-8 mb-3 opacity-80" />
                             <p className="text-3xl font-bold mb-1">2.4M</p>
