@@ -395,27 +395,6 @@ const SocialPlatform = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 lg:hidden z-50">
-                <div className="flex items-center justify-around py-3">
-                    <button className="p-2 text-purple-600">
-                        <Home className="w-6 h-6" />
-                    </button>
-                    <button className="p-2 text-gray-600">
-                        <TrendingUp className="w-6 h-6" />
-                    </button>
-                    <button className="p-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full -mt-6 shadow-lg">
-                        <Plus className="w-6 h-6" />
-                    </button>
-                    <button className="relative p-2 text-gray-600">
-                        <Bell className="w-6 h-6" />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                    </button>
-                    <button className="p-2 text-gray-600">
-                        <Users className="w-6 h-6" />
-                    </button>
-                </div>
-            </div>
         </div>
     )
 }
