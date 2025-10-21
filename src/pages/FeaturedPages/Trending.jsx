@@ -269,11 +269,11 @@ const TrendingPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="max-w-7xl mx-auto lg:px-8 lg:py-6">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
+                    className="mb-4 lg:mb-8 px-4 lg:px-0 pt-4 lg:pt-0"
                 >
                     <div className="flex items-center gap-3 mb-4">
                         <div className="p-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl">
@@ -287,8 +287,8 @@ const TrendingPage = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                        <div className="flex gap-2 overflow-x-auto pb-2">
+                    <div className="flex flex-col sm:flex-row gap-4 mb-4 lg:mb-6">
+                        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
                             {categories.map(category => {
                                 const Icon = category.icon
                                 const isActive = selectedCategory === category.id
@@ -297,8 +297,8 @@ const TrendingPage = () => {
                                         key={category.id}
                                         onClick={() => setSelectedCategory(category.id)}
                                         className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${isActive
-                                                ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
-                                                : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-orange-300'
+                                            ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
+                                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-orange-300'
                                             }`}
                                     >
                                         <Icon className="w-4 h-4" />
@@ -308,14 +308,14 @@ const TrendingPage = () => {
                             })}
                         </div>
 
-                        <div className="flex gap-2 sm:ml-auto">
+                        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar sm:ml-auto">
                             {timeframes.map(timeframe => (
                                 <button
                                     key={timeframe.id}
                                     onClick={() => setSelectedTimeframe(timeframe.id)}
                                     className={`px-4 py-2.5 rounded-xl font-semibold whitespace-nowrap transition-all ${selectedTimeframe === timeframe.id
-                                            ? 'bg-white text-orange-600 border-2 border-orange-200 shadow-sm'
-                                            : 'bg-white text-gray-600 border-2 border-gray-200 hover:border-gray-300'
+                                        ? 'bg-white text-orange-600 border-2 border-orange-200 shadow-sm'
+                                        : 'bg-white text-gray-600 border-2 border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     {timeframe.label}
@@ -355,8 +355,8 @@ const TrendingPage = () => {
                     </div>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-6">
+                    <div className="lg:col-span-2 space-y-0 lg:space-y-6">
                         <AnimatePresence mode="popLayout">
                             {filteredPosts.map((post, idx) => (
                                 <motion.div
@@ -366,9 +366,9 @@ const TrendingPage = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ delay: idx * 0.05 }}
-                                    className="bg-white rounded-2xl border-2 border-gray-200 overflow-hidden hover:shadow-xl transition-all"
+                                    className="bg-white lg:rounded-2xl border-b lg:border-2 border-gray-200 overflow-hidden hover:shadow-xl transition-all"
                                 >
-                                    <div className="p-6">
+                                    <div className="p-4 lg:p-6">
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="flex gap-3 flex-1">
                                                 <div className="relative">
@@ -382,7 +382,7 @@ const TrendingPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <div className="flex items-center gap-2 mb-1">
+                                                    <div className="flex items-center gap-2 mb-1 flex-wrap">
                                                         <h3 className="font-bold text-gray-900">{post.author.name}</h3>
                                                         {post.author.verified && (
                                                             <div className="w-5 h-5 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center">
@@ -395,7 +395,7 @@ const TrendingPage = () => {
                                                         </div>
                                                     </div>
                                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                        <span>{post.author.handle}</span>
+                                                        <span className="truncate">{post.author.handle}</span>
                                                         <span>•</span>
                                                         <span>{post.timestamp}</span>
                                                     </div>
@@ -428,11 +428,11 @@ const TrendingPage = () => {
                                         />
                                     )}
 
-                                    <div className="p-6 border-t border-gray-100">
-                                        <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
+                                    <div className="p-4 lg:p-6 border-t border-gray-100">
+                                        <div className="flex items-center gap-4 lg:gap-6 text-sm text-gray-600 mb-4">
                                             <div className="flex items-center gap-1">
                                                 <Eye className="w-4 h-4" />
-                                                <span className="font-semibold">{(post.engagement.views / 1000).toFixed(1)}K views</span>
+                                                <span className="font-semibold">{(post.engagement.views / 1000).toFixed(1)}K</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <TrendingUp className="w-4 h-4 text-orange-500" />
@@ -441,7 +441,7 @@ const TrendingPage = () => {
                                         </div>
 
                                         <div className="flex items-center justify-between">
-                                            <div className="flex gap-6">
+                                            <div className="flex gap-4 lg:gap-6">
                                                 <button
                                                     onClick={() => toggleLike(post.id)}
                                                     className={`flex items-center gap-2 transition-all ${likedPosts[post.id] ? 'text-orange-600' : 'text-gray-600 hover:text-orange-600'
@@ -449,7 +449,7 @@ const TrendingPage = () => {
                                                 >
                                                     <ThumbsUp className={`w-5 h-5 ${likedPosts[post.id] ? 'fill-orange-600' : ''}`} />
                                                     <span className="text-sm font-semibold">
-                                                        {likedPosts[post.id] ? post.engagement.likes + 1 : post.engagement.likes}
+                                                        {likedPosts[post.id] ? (post.engagement.likes / 1000).toFixed(1) : (post.engagement.likes / 1000).toFixed(1)}K
                                                     </span>
                                                 </button>
                                                 <button className="flex items-center gap-2 text-gray-600 hover:text-orange-600 transition-all">
@@ -458,7 +458,7 @@ const TrendingPage = () => {
                                                 </button>
                                                 <button className="flex items-center gap-2 text-gray-600 hover:text-orange-600 transition-all">
                                                     <Share2 className="w-5 h-5" />
-                                                    <span className="text-sm font-semibold">{post.engagement.shares}</span>
+                                                    <span className="text-sm font-semibold hidden sm:inline">{post.engagement.shares}</span>
                                                 </button>
                                             </div>
                                             <button
@@ -474,7 +474,7 @@ const TrendingPage = () => {
                         </AnimatePresence>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="hidden lg:block space-y-6">
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
