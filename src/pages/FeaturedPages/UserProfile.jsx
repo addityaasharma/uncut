@@ -126,7 +126,7 @@ const ProfilePage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-            <div className="max-w-6xl mx-auto">
+            <div className="w-full sm:max-w-6xl sm:mx-auto px-2 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -213,11 +213,11 @@ const ProfilePage = () => {
                     </div>
                 </motion.div>
 
-                <div className="mt-6 px-4 sm:px-6 lg:px-8">
+                <div className="mt-6 px-4 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="lg:col-span-2 space-y-6">
-                            <div className="bg-white rounded-2xl border-2 border-gray-200 overflow-hidden">
-                                <div className="border-b border-gray-200">
+                            <div className="bg-whiteoverflow-hidden">
+                                <div className="border-b border-gray-900">
                                     <div className="flex">
                                         {tabs.map(tab => (
                                             <button
@@ -243,7 +243,7 @@ const ProfilePage = () => {
                                     </div>
                                 </div>
 
-                                <div className="p-6">
+                                <div className="p-2">
                                     <AnimatePresence mode="wait">
                                         {activeTab === 'posts' && (
                                             <motion.div
